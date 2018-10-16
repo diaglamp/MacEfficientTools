@@ -4,11 +4,12 @@ sudo bash install-steps/guest_account.sh disable
 # Use F1-F12 as standard function keys
 defaults write -globalDomain com.apple.keyboard.fnState -int 1
 
-# Enable full keyboard access for all controls
+# Enable full keyboard access for all controls, Tab to select option
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Auto hide and show Dock
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0.05
 
 # Hide some app icons in Dock and make dock lays left
 clang -framework Foundation tools/DockIconHider_source.m -o DockIconHider
