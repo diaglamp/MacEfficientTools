@@ -38,6 +38,8 @@ alias gsr='git_recursive_status'
 alias gss='git status --short'
 alias gst='_git_show_commit_in_tool'
 alias cdsubmodule='GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) && [[ -n "$GIT_ROOT" ]] && [[ -f "$GIT_ROOT/.gitmodules" ]] && realpath=$(awk -F= "/path =/ {print substr(\$2, 2)}" "$GIT_ROOT/.gitmodules") && cd "$GIT_ROOT/$realpath"'
+alias whyignore='git check-ignore -v'
+alias reignore='git rm -r --cached . && git add .'
 
 function gs() {
     if brew ls --versions scmpuff > /dev/null; then
@@ -333,4 +335,20 @@ gdcr () {
 		command="git diff "$commit" "$commit"~ "$2""
 		eval "$command"
 	fi
+}
+
+fzf-down() {
+  fzf --height 80% "$@" --border
+}
+
+_fzf_complete_gbdr() {
+    # 把 origin/branch 转换成 branch
+    local temp
+    temp=$(git branch --remote | awk -F / '{ $1=""; print $0}' OFS="/" | cut -c2- | fzf-down --multi --preview-window right:70% --preview 'git show --color=always origin/{1} | head -'$LINES)
+    LBUFFER="$1$temp"
+    zle redisplay
+}
+
+gbdr() {
+    git push origin :$1
 }

@@ -1,11 +1,10 @@
-# TODO:修改私有脚本
-username='xxx'
+username='bestswifter'
 
 # Write script you want to use in the `if` block
 if [[ "$username" == $(whoami) ]]; then
     # Git config
-    git config --global user.name dengweijie
-    git config --global user.email dengweijie@xhj.com
+    git config --global user.name bestswifter
+    git config --global user.email ktzhang@bestswifter.com
 
     if [[ ! -d $HOME/.ssh ]]; then
         mkdir $HOME/.ssh
@@ -38,6 +37,7 @@ if [[ "$username" == $(whoami) ]]; then
             curl "http://app.bestswifter.com/MindNode501.app.zip" -o ~/Downloads/MindNode.app.zip
         fi
 
+        echo "Install mindnode"
         unzip -q $HOME/Downloads/MindNode.app.zip -d /Applications/MindNode\ 2.app
         rm $HOME/Downloads/MindNode.app.zip
     fi

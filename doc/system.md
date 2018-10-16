@@ -36,7 +36,6 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 ```shell
 defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock autohide-delay -float 0.05 #修改动画时间
 ```
 
 ## 显示电池电量百分比
