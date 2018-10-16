@@ -2,6 +2,11 @@
 
 有些配置无法立即生效，因此建议安装完以后注销再登录一次，即可看到效果
 
+## 禁用访客账号登录 (单独跑有问题先注释)
+```sh
+# sudo bash install-steps/guest_account.sh disable
+```
+
 ## 交换 F1-F12 与特殊按键
 
 默认情况下，键盘上的 F1-F12 是特殊键，偏向娱乐，比如 F1、F2 调整亮度，F11、F12
@@ -10,100 +15,121 @@
 其实 F1-F12 可以用作快捷键，但需要配合键盘左下角的 Fn
 键一起按下。此脚本的作用是让 F1 键成为真正的 F1，如果调节亮度才需要 Fn + F1:
 
-```shell
+```sh
 defaults write -globalDomain com.apple.keyboard.fnState -int 1
 ```
 
 ## 开启完全键盘控制
 
-在 Mac OS 弹出的对话框中，经常需要切换选项：
-
-![](http://blog.bestswifter.com/1515801904.png)
-
-如图所示，默认选中的是左侧的选项，我们不用移动鼠标点击右边的选项，只要按下 <Tab>
-键即可切换到右侧选项，再按下空格键就可以选中了。
+在 Mac OS 弹出的对话框中，经常需要切换选项, 不用移动鼠标点击右边的选项，只要按下 `Tab` 键即可切换到右侧选项，再按下空格键就可以选中了。
 
 以上特性需要完全开启键盘控制，由下面这行代码实现：
 
-```shell
+```sh
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 ```
 
-## 自动展示/隐藏 dock
+## dock 设置
 
-在 Alfred 等软件中可以配置各个软件的全局打开快捷键，所以没必要一直显示着 Dock
-去占用空间，可以设置为自动隐藏：
+- 自动展示/隐藏 加快动画速度
+- 加快 Mission Control 动画
+- 设置左边
+- 移除系统默认 APP
 
-```shell
+```sh
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0.05 #动画速度
+defaults write com.apple.dock expose-animation-duration -float 0.12 
 ```
+
+> 移除App需要修改的内容比较多，这里使用了 oc 文件编译后执行去修改（其实用 python/sh 去改更适合一些）
 
 ## 显示电池电量百分比
 
-使用这行命令可以显示电量百分比：
-
-```shell
+```sh
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 ```
 
 ## 加速窗口大小调整动画
 
-通过减少延迟时间，可以加速窗口大小调整时的动画：
-
-```shell
+```sh
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 ```
 
-## Finder 中总是显示文件名的后缀
+## Finder 配置
 
-再也不会因为后缀名被隐藏而造成烦恼了
+- CreateDesktop 不知道是啥，注释
+- Allow text selection in Quick Look (设置了，并无卵用)
+- Hide icons for hard drives, servers, and removable media on the desktop （硬盘等）
+- Disable the warning when changing a file extension
+- Always show filename extension
 
-```shell
+```sh
+# defaults write com.apple.finder CreateDesktop false
+defaults write com.apple.finder QLEnableTextSelection -boolean true
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -boolean false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -boolean false
+defaults write com.apple.finder FXEnableExtensionChangeWarning -boolean false
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 ```
 
-## 禁用镜像文件验证
+## 配置触摸板 (待测试)
 
-打开大的 DMG 文件时，验证过程也是蛮繁琐的，可以关闭：
+- 启用触摸板轻触点击
+- 开启三指拖动 (三指上下左右滑动都有冲突手势, 注释)
 
-```shell
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-```
-
-## 启用触摸板轻触点击
-
-再也不用咔擦咔擦狂戳触摸板了，轻轻触摸就起到了点击的作用，非常优雅：
-
-```shell
+```sh
 defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+# defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
 
-## 开启三指拖动
-
-开启这个功能后，我们可以用三个手指拖动非全屏窗口，改变他们的位置。主要靠这两行命令实现：
-
-```shell
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
-```
-
-## 显示~/Library/ 目录
+## 显示 `~/Library/` 目录
 
 这个目录默认是隐藏的，我们可以在不显示所有隐藏文件的前提下单独显示它：
 
-```shell
+```sh
 chflags nohidden ~/Library
+```
+
+# 禁用 spotlight (没必要, 先注释, Todo: 修改快捷键即可)（需同步安装 Alfred）
+
+```sh
+# sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+```
+
+# Menu bar 设置 (待测试)
+
+- 隐藏 Siri icon
+- 不知道做了啥，先注释
+
+```sh
+defaults write com.apple.Siri StatusMenuVisible -bool false
+defaults write com.apple.Siri UserHasDeclinedEnable -bool true
+
+#cp config/com.apple.systemuiserver.plist ~/Library/Preferences/
+```
+
+## 禁用镜像文件验证 (无感，先注释)（比如第三方渠道下载的 xcode，但会不会有安全风险？）
+
+打开大的 DMG 文件时，验证过程也是蛮繁琐的，可以关闭：
+
+```sh
+# defaults write com.apple.frameworks.diskimages skip-verify -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 ```
 
 ## 禁用 App 验证
 
-默认情况下系统禁止安装第三方的App，打开前也会有弹窗让用户确认，通过以下两行代码可以 绕过：
+- 允许第三方来源 App 安装
+- Disable the “Are you sure you want to open this application?” dialog
 
-```shell
+```sh
 sudo spctl --master-disable
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 ```
@@ -112,13 +138,13 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 很多时候系统的自动改正功能反而会帮倒忙，比如：
 
-1. 明明每行第一个字母我就是要小写，结果自动改成大写
-2. 有时候明明要输入普通的引号，`'` 或者`"`，结果被自动改成斜体的 `“`，导致各种解析错误
-3. 有时候输入两个连字符(dash) `--` 被自动改成为长的(emdash) `—`
+- 有时候明明要输入普通的引号，`'` 或者`"`，结果被自动改成斜体的 `“`，导致各种解析错误
+- 有时候输入两个连字符(dash) `--` 被自动改成为长的(emdash) `—`
+- 明明每行第一个字母我就是要小写，结果自动改成大写
 
 这些自动改正可以用以下命令来禁止：
 
-```shell
+```sh
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
