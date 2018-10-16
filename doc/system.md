@@ -59,10 +59,10 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 ## Finder 配置
 
 - CreateDesktop 不知道是啥，注释
-- Allow text selection in Quick Look (设置了，并无卵用)
-- Hide icons for hard drives, servers, and removable media on the desktop （硬盘等）
-- Disable the warning when changing a file extension
-- Always show filename extension
+- Allow text selection in Quick Look (QL中选择文本，好功能，但设置了，并无卵用)
+- Hide icons for hard drives, servers, and removable media on the desktop （隐藏桌面硬盘等icon）
+- Disable the warning when changing a file extension 修改后缀时不再询问
+- Always show filename extension 总是显示文件后缀
 
 ```sh
 # defaults write com.apple.finder CreateDesktop false
