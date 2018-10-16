@@ -27,7 +27,7 @@
 
 ### proxy: 方便的切换和展示系统代理
 
-如果想使用 Charles 抓包，则输入 `p on` 即可将系统的 HTTP 和  HTTPS 代理设置为 127.0.0.1:8888
+如果想使用 Charles 抓包，则输入 `p on` 即可将系统的 HTTP 和 HTTPS 代理设置为 127.0.0.1:8888
 
 如果想使用 Shadowsocks 科学上网，则输入 `p g` 即可将系统的 socks 代理设置为 localhost:14179，需要自行修改端口号
 
@@ -107,7 +107,7 @@ urldecode https%3A%2F%2Fbaidu.com
 
 ### ow 命令行中打开 Xcode 工程
 
-如果当期目录下存在 xcodeproj 文件或者 xcworkspace 文件，可以用 ow 命令快速打开，如果要打开的工程在别的目录，则使用  `ow path_to_project` 的命令打开
+如果当期目录下存在 xcodeproj 文件或者 xcworkspace 文件，可以用 ow 命令快速打开，如果要打开的工程在别的目录，则使用 `ow path_to_project` 的命令打开
 
 如果 wcworkspace 和 Xcodeproj 文件同时存在，优先打开前者。
 
@@ -134,10 +134,10 @@ app2ipa xxx.app
 
 ```shell
 # brew install ideviceinstaller
-app2ipa xxx.app | xargs ideviceinstaller -i 
+app2ipa xxx.app | xargs ideviceinstaller -i
 ```
 
-###  bsof 检查端口占用
+### bsof 检查端口占用
 
 可以通过系统的 `lsof -i:port` 来检查哪个程序占用了 `port` 端口，但有时候我们不想记参数，或者想查找某个程序占用了哪些端口，此时可以使用 `bsof`。
 
@@ -145,16 +145,15 @@ app2ipa xxx.app | xargs ideviceinstaller -i
 
 ![](http://images.bestswifter.com/WX20171201-210038.png)
 
-
 ### 全局别名
 
-1. 如果只想看某个输出的前 3 行，可以用 `cat xxx H 3`，这是因为 **H** 被全局重命名为 `| head -n`
-2. 如果是看输出的后 3 行，可以用 `cat xxx T 3`，其中 **T** 被全局重命名为 `| tail -n`
-3. 如果是看输出的指定行数，比如第 1、3、7 行，可以用 `cat xxx R 1 3 7`, 其中 **R** 被全局重命名为 `| row`
-4. 如果要看某个输出的某几列，比如倒数第一列，可以用 `cat xxx C -1`，其中 **C** 被全局重命名为 `| column`
-5. 如果要在 less 中查看某个超长的输出，可以用 `cat xxx L`，其中 **L** 被全局重命名为 `| L`
-6. 如果要忽略某条命令的报错，可以用 `command NE`，其中 **NE** 被全局重命名为 `2> /dev/null`
-7. 如果要某个命令完全不输出内容，可以用 `command NUL`，其中 **NUL**被全局重命名为 `> /dev/null 2>&1`
+1.  如果只想看某个输出的前 3 行，可以用 `cat xxx H 3`，这是因为 **H** 被全局重命名为 `| head -n`
+2.  如果是看输出的后 3 行，可以用 `cat xxx T 3`，其中 **T** 被全局重命名为 `| tail -n`
+3.  如果是看输出的指定行数，比如第 1、3、7 行，可以用 `cat xxx R 1 3 7`, 其中 **R** 被全局重命名为 `| row`
+4.  如果要看某个输出的某几列，比如倒数第一列，可以用 `cat xxx C -1`，其中 **C** 被全局重命名为 `| column`
+5.  如果要在 less 中查看某个超长的输出，可以用 `cat xxx L`，其中 **L** 被全局重命名为 `| L`
+6.  如果要忽略某条命令的报错，可以用 `command NE`，其中 **NE** 被全局重命名为 `2> /dev/null`
+7.  如果要某个命令完全不输出内容，可以用 `command NUL`，其中 **NUL**被全局重命名为 `> /dev/null 2>&1`
 
 ### ppjson 在终端中格式化 json
 
@@ -196,3 +195,57 @@ qnconf sk ak pictures http://images.bestswifter.com
 ### xcodepath
 
 如果你当前运行了 Xcode 进程，输入此命令可以快速查看 Xcode 可执行文件的路径
+
+### bswhich
+
+如果拿到别人的配置脚本，想自行定制。显然只知道定义是不够的，还得知道这个 alias 或者函数是在哪个文件里被定义的，这样才好去修改，此时建议使用我配置的 `bswhich` 命令：
+
+```shell
+bswhich ip
+bswhich gg
+```
+
+### 终端 Finder 模拟器：r
+
+系统的 Finder 其实并没那么好用，最大的问题在于没法和 Shell 有效的交互，比如复制移动文件、在当前文件夹位置打开终端都很不方便。
+
+作为程序员，我推荐使用 Ranger 来浏览文件目录，它是一个使用 Vim 键位映射的文件管理工具。
+
+使用快捷键 `r` 来打开 ranger，它的完整定义是：`alias r='source ranger'`，这样做的好处在于当 Ranger 中目录发生变化时，可以改变外部 Shell 的路径。
+
+在 Ranger 中，使用 `j/k` 来上下移动光标，`h/l` 来进行目录的前进和后退。
+
+常用的操作有：
+
+1.  zh：切换是否显示系统隐藏文件，按一次打开，再按一次关闭
+2.  x：安全删除文件（放入垃圾箱中而不是 rm）
+3.  yy：复制，dd：剪贴，pp：粘贴，空格键多选文件
+4.  gh：进入用户目录（$HOME）
+5.  yn：复制文件名，yd 复制文件夹名，yp 复制完整路径名
+6.  :j：和 autojump 一样，输入要跳转的地方
+7.  \<C-f>：利用 fzf 搜索文件
+8.  f：当前目录内过滤文件名
+9.  du：查看当前目录内各文件夹大小
+10. oo：在 Finder 中打开，op 或回车键：使用系统默认的程序打开，oc：使用 VSCode 打开（如果已经有 VSCode 进程，为了加快速度，则使用已存在的）
+11. m：添加书签，um：选择要删除的书签，`\``：展示书签
+
+### 终端命令自动补全
+
+输入快捷键 `Ctrl + E` 可以根据当前提示快速补全，快捷键 `;` 可以补全并执行
+
+### fzf：模糊搜索神器
+
+fzf 是一个模糊搜索神器，`^t` 是特定语义下的补全快捷键，`^i` 是默认快捷键，很少用到：
+
+1. 输入 `kill` 然后按下 `^t` 键，就会打开 fzf 补全界面，通过输入进程名来获取到
+   PID
+2. 类似的还有输入 `ssh`、`export`、`unset`、`unlias` 等命令
+3. 按下 `alt + c` 可以列出当前目录下的文件夹，并快速进入
+4. 按下 `^g`，会自动补全 autojump 的路径列表
+5. 按下 `^r` 进入命令历史模式，此时也会自动打开 fzf 补全界面，自动补全命令
+6. 注意此时的补全并不会自动执行，只会把命令粘贴到命令行中，如果想要按下回车后自动执行，可以用快捷键
+`^x^r` 来触发
+
+fzf 甚至还支持为自定义的命令添加补全，具体做法可以参考：[Examples (completion)](https://github.com/junegunn/fzf/wiki/Examples-(completion))
+
+
