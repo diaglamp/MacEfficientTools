@@ -1,5 +1,5 @@
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH:$M2_HOME/bin
-plugins=(extract encode64 urltools brew zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git autojump zsh-syntax-highlighting zsh-autosuggestions)
 ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"

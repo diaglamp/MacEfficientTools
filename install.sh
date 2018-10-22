@@ -76,7 +76,7 @@ fi
 # brew install redis #REmote DIctionary Server
 # brew_install cmake #CMake is an open-source, cross-platform family of tools designed to build, test and package software. 
 # brew_install gawk #gnu-awk
-# brew_install autojump #自动补全历史路径
+brew_install autojump #自动补全历史路径
 # brew_install wget #gnu下载工具
 # brew_install nvm #Node Version Manager
 # brew_install exiv2 #a Cross-platform C++ library and a command line utility to manage image metadata. 
@@ -95,10 +95,10 @@ fi
 ./install-steps/personal.sh
 
 # link git config
-mv ~/.gitconfig ~/.gitconfig_backup
-backup_file ~/.gitattributes
-ln -s ~/.macbootstrap/git-config/.gitconfig ~/.gitconfig
-ln -s ~/.macbootstrap/git-config/.gitattributes ~/.gitattributes
+# mv ~/.gitconfig ~/.gitconfig_backup
+# backup_file ~/.gitattributes
+# ln -s ~/.macbootstrap/git-config/.gitconfig ~/.gitconfig
+# ln -s ~/.macbootstrap/git-config/.gitattributes ~/.gitattributes
 
 # install zsh
 if [[ ! -e ~/.oh-my-zsh ]]; then
@@ -108,7 +108,8 @@ fi
 # zshrc setup
 backup_file ~/.zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-ln -s ~/.macbootstrap/zsh-config/.zshrc ~/.zshrc
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# ln -s ~/.macbootstrap/zsh-config/.zshrc ~/.zshrc
 
 # vim configuration
 backup_file ~/.vim
