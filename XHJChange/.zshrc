@@ -4,6 +4,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/lizhi/.oh-my-zsh"
 
+# Which plugins would you like to load?
+plugins=(
+  git autojump zsh-syntax-highlighting zsh-autosuggestions
+)
+
 # Set name of the theme to load
 ZSH_THEME="robbyrussell"
 
@@ -32,11 +37,6 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load?
-plugins=(
-  git autojump zsh-syntax-highlighting zsh-autosuggestions
-)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -46,6 +46,6 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+### aliases
+# cocoapods
+alias podiu="pod install --repo-update"

@@ -1,6 +1,7 @@
 # Install chisel for debugging in lldb
 brew install chisel
 if [[ ! -e ~/.lldbinit ]]; then
+    #reveal alias
     cp ~/.macbootstrap/config/.lldbinit ~/.lldbinit
 else
     if grep -q "/usr/local/opt/chisel/libexec/fblldb.py" "$HOME/.lldbinit"; then

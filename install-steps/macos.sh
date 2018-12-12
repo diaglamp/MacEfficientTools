@@ -20,9 +20,6 @@ rm ./DockIconHider
 # Show battery percentage
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
-# Disable menu bar transparency
-# defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
-
 # Optimize window resize speed
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
@@ -55,6 +52,8 @@ chflags nohidden ~/Library
 defaults write com.apple.Siri StatusMenuVisible -bool false
 defaults write com.apple.Siri UserHasDeclinedEnable -bool true
 # cp config/com.apple.systemuiserver.plist ~/Library/Preferences/
+# Disable menu bar transparency
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
 # Skip image verify (Unused, Comment)
 # defaults write com.apple.frameworks.diskimages skip-verify -bool true

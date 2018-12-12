@@ -49,7 +49,7 @@ fi
 if [[ ! -e /Applications/Visual\ Studio\ Code.app ]]; then
     brew cask install visual-studio-code
 
-    # VSCode 配置，先注释，后续研究
+    # VSCode 配置，先注释，keybinding/snippet/settings 等
     # sh ./vscode/setup.sh
 else
     echo "You have installed vscode"
@@ -87,7 +87,7 @@ brew_install autojump #自动补全历史路径
 # brew_install icdiff #Improved colored diff
 # brew_install scmpuff #Makes working with git from the command line quicker by substituting numeric shortcuts for files.
 # brew_install fzf #A command-line fuzzy finder
-# brew_install nvim #improvement of vim
+brew_install nvim #improvement of vim
 # brew_install exiftool #a program for reading, writing, and manipulating image, audio, video, and PDF metadata. 
 # $(brew --prefix)/opt/fzf/install --all #安装 fzf 的扩展
 
@@ -109,18 +109,18 @@ fi
 backup_file ~/.zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# ln -s ~/.macbootstrap/zsh-config/.zshrc ~/.zshrc
+cp zsh-config/.zshrc ~/.zshrc
 
 # vim configuration
-backup_file ~/.vim
-backup_file ~/.config/nvim/
-git clone https://github.com/bestswifter/vim-config.git ~/.config/nvim
-ln -s ~/.config/nvim ~/.vim
+# backup_file ~/.vim
+# backup_file ~/.config/nvim/
+# git clone https://github.com/bestswifter/vim-config.git ~/.config/nvim
+# ln -s ~/.config/nvim ~/.vim
 
 # ESLint configuration
-backup_file ~/.eslintrc.js
-backup_file ~/.eslintrc
-ln -s ~/.macbootstrap/.eslintrc.js ~/.eslintrc.js
+# backup_file ~/.eslintrc.js
+# backup_file ~/.eslintrc
+# ln -s ~/.macbootstrap/.eslintrc.js ~/.eslintrc.js
 
 # install Chisel and Coderunner
 ./install-steps/dependencies.before.sh
