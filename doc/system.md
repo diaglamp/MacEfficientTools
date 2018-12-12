@@ -1,16 +1,20 @@
-# 这部分内容主要介绍对默认 OS X 系统所做的修改
+# 默认 OS X 系统配置修改
 
-有些配置无法立即生效，因此建议安装完以后注销再登录一次，即可看到效果
+有些配置无法立即生效，因此建议安装完以后重启，即可看到效果
+
+## 依赖文件
+
+- tools/DockIconHider_source.m
+- // config/com.apple.systemuiserver.plist
 
 ## 禁用访客账号登录 (单独跑有问题先注释)
 ```sh
 # sudo bash install-steps/guest_account.sh disable
 ```
 
-## 交换 F1-F12 与特殊按键
+## 交换 F1-F12 与特殊按键（外接键盘的话不需要）
 
-默认情况下，键盘上的 F1-F12 是特殊键，偏向娱乐，比如 F1、F2 调整亮度，F11、F12
-调整声音等。但程序员没必要总是折腾这些。
+默认情况下，键盘上的 F1-F12 是特殊键，偏向娱乐，比如 F1、F2 调整亮度，F11、F12 调整声音等。但程序员没必要总是折腾这些。
 
 其实 F1-F12 可以用作快捷键，但需要配合键盘左下角的 Fn
 键一起按下。此脚本的作用是让 F1 键成为真正的 F1，如果调节亮度才需要 Fn + F1:
@@ -96,22 +100,24 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 chflags nohidden ~/Library
 ```
 
-# 禁用 spotlight (没必要, 先注释, Todo: 修改快捷键即可)（需同步安装 Alfred）
+## 禁用 spotlight (没必要, 先注释, Todo: 修改快捷键即可)（需同步安装 Alfred）
 
 ```sh
 # sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 ```
 
-# Menu bar 设置 (待测试)
+## Menu bar 设置 (待测试)
 
 - 隐藏 Siri icon
-- 不知道做了啥，先注释
+- `systemuiserver` 不知道做了啥，先注释
+- Disable menu bar transparency 禁用透明
 
 ```sh
 defaults write com.apple.Siri StatusMenuVisible -bool false
 defaults write com.apple.Siri UserHasDeclinedEnable -bool true
 
 #cp config/com.apple.systemuiserver.plist ~/Library/Preferences/
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 ```
 
 ## 禁用镜像文件验证 (无感，先注释)（比如第三方渠道下载的 xcode，但会不会有安全风险？）
