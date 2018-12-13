@@ -9,14 +9,19 @@ sudo ./install-steps/macos.sh
 
 brew install python3
 
-# TODO: install ShadowsocksX
+if [[ ! -e /Applications/ShadowsocksX-NG.app ]]; then
+    brew cask install shadowsocksx-ng 
+    # TODO:  config shadowsocks
+else 
+    echo "You have installed ShadowsocksX" 
+fi
 
 # === App Install ===
 
 if [[ ! -e /Applications/iTerm.app ]]; then
     brew cask install iterm2
 
-    # 不知道配置改了啥，先注释，后续 git diff 研究
+    # TODO: 不知道配置改了啥，先注释，后续 git diff 研究
     # defaults delete com.googlecode.iterm2
     # cp config/com.googlecode.iterm2.plist $HOME/Library/Preferences
 else
@@ -72,11 +77,15 @@ else
 fi
 
 # 用一个装一个
+brew_install autojump # 自动补全历史路径
+brew_install fzf # A command-line fuzzy finder
+$(brew --prefix)/opt/fzf/install --all # 安装 fzf 的扩展
+
 # brew install --HEAD universal-ctags/universal-ctags/universal-ctags #vim下方便代码阅读的工具
+# brew_install nvim # improvement of vim
+# brew_install gawk #gnu-awk
 # brew install redis #REmote DIctionary Server
 # brew_install cmake #CMake is an open-source, cross-platform family of tools designed to build, test and package software. 
-# brew_install gawk #gnu-awk
-brew_install autojump #自动补全历史路径
 # brew_install wget #gnu下载工具
 # brew_install nvm #Node Version Manager
 # brew_install exiv2 #a Cross-platform C++ library and a command line utility to manage image metadata. 
@@ -86,18 +95,13 @@ brew_install autojump #自动补全历史路径
 # brew_install gpg #加密软件
 # brew_install icdiff #Improved colored diff
 # brew_install scmpuff #Makes working with git from the command line quicker by substituting numeric shortcuts for files.
-# brew_install fzf #A command-line fuzzy finder
-brew_install nvim #improvement of vim
 # brew_install exiftool #a program for reading, writing, and manipulating image, audio, video, and PDF metadata. 
-# $(brew --prefix)/opt/fzf/install --all #安装 fzf 的扩展
 
-# Personal
-./install-steps/personal.sh
 
 # link git config
-# mv ~/.gitconfig ~/.gitconfig_backup
+# backup_file ~/.gitconfig
 # backup_file ~/.gitattributes
-# ln -s ~/.macbootstrap/git-config/.gitconfig ~/.gitconfig
+# ln -s ~/.macconfig/git-config/.gitconfig ~/.gitconfig
 # ln -s ~/.macbootstrap/git-config/.gitattributes ~/.gitattributes
 
 # install zsh
@@ -130,3 +134,7 @@ cp zsh-config/.zshrc ~/.zshrc
 # ./install-steps/sogou_sync.sh
 
 # ssh configuration
+
+
+# Personal
+./install-steps/personal.sh

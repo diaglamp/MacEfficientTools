@@ -8,6 +8,7 @@
 - // config/com.apple.systemuiserver.plist
 
 ## 禁用访客账号登录 (单独跑有问题先注释)
+
 ```sh
 # sudo bash install-steps/guest_account.sh disable
 ```
