@@ -21,12 +21,12 @@ function fe() {
 }
 
 # find & gvim file by file name pattern
-function gfe() {
-    if [[ "$#" -eq 1 ]]; then
-        find . -name "$1"|while read -r file;do (gvimServer "$file");done
-    elif [[ "$#" -eq 2 ]]; then
-        find "$1" -name "$2"|while read -r file;do (gvimServer "$file");done
-    else
-        echo "Useage:gfe [DIRECTORY] <pattern>"
-    fi
-}
+# function gfe() {
+#     if [[ "$#" -eq 1 ]]; then
+#         find . -name "$1"|while read -r file;do (gvimServer "$file");done
+#     elif [[ "$#" -eq 2 ]]; then
+#         find "$1" -name "$2"|while read -r file;do (gvimServer "$file");done
+#     else
+#         echo "Useage:gfe [DIRECTORY] <pattern>"
+#     fi
+# }

@@ -9,3 +9,11 @@ function xgrep() {
     fi
 }
 
+#如果不指定文件名，默认是当前目录下递归搜索，否则在指定文件名中搜索
+function bsgrep() {
+    if [ $# -eq 1 ]; then
+        grep -rn "$1" .
+    else
+        grep -n "$1" "$pwd/$2"
+    fi
+}
