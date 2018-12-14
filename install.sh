@@ -101,19 +101,19 @@ $(brew --prefix)/opt/fzf/install --all # 安装 fzf 的扩展
 # link git config
 # backup_file ~/.gitconfig
 # backup_file ~/.gitattributes
-# ln -s ~/.macconfig/git-config/.gitconfig ~/.gitconfig
-# ln -s ~/.macbootstrap/git-config/.gitattributes ~/.gitattributes
+# ln -s ~/.macconfig/git/.gitconfig ~/.gitconfig
+# ln -s ~/.macconfig/git/.gitattributes ~/.gitattributes
 
-# install zsh
+# zsh
 if [[ ! -e ~/.oh-my-zsh ]]; then
     curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 fi
 
-# zshrc setup
-backup_file ~/.zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-cp zsh-config/.zshrc ~/.zshrc
+
+backup_file ~/.zshrc
+ln -s ~/.macconfig/zsh/.zshrc ~/.zshrc
 
 # vim configuration
 # backup_file ~/.vim

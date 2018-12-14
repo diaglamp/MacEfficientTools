@@ -150,3 +150,35 @@ brew_install autojump
 ``` sh
 brew_install fzf
 ```
+
+**git**
+
+东西略多，先注释，后续整理
+
+``` sh
+# backup_file ~/.gitconfig
+# backup_file ~/.gitattributes
+# ln -s ~/.macconfig/git/.gitconfig ~/.gitconfig
+# ln -s ~/.macconfig/git/.gitattributes ~/.gitattributes
+```
+
+**zsh**
+
+东西超级多，要整理
+
+.zshrc 里面包括了很多工具和快捷键
+
+``` sh
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+
+# config
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+backup_file ~/.zshrc
+ln -s ~/.macconfig/zsh/.zshrc ~/.zshrc
+```
+
+已经部分整理的 Alias
+
+- git
