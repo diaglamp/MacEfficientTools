@@ -1,68 +1,70 @@
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH:$M2_HOME/bin
-plugins=(git autojump zsh-syntax-highlighting zsh-autosuggestions)
-ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Which plugins would you like to load?
+plugins=(
+  git autojump zsh-syntax-highlighting zsh-autosuggestions
+)
+
+# Set name of the theme to load
 ZSH_THEME="robbyrussell"
-PROMPT=$'%{$purple%}%n%{$reset_color%} in %{$limegreen%}%~%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$orange%}%{$reset_color%} at %{$hotpink%}%* %{$orange%}λ%{$reset_color%} '
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
 source $ZSH/oh-my-zsh.sh
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**'
-zstyle ':completion:*:*' ignored-patterns '*ORIG_HEAD'
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-compinit -u
+# User configuration
 
-HISTCONTROL=ignorespace
-HISTFILE=~/.histfile
-HISTSIZE=10000000
-HISTFILESIZE=10000000
-SAVEHIST=10000000
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=magenta'
-ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd"
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+### aliases
 
-BS_ZSH_BASE="$HOME/.macbootstrap"
-BS_ZSH_TOOLS=${BS_ZSH_BASE}/tools
+# path
+XHJ_CONFIG_BASE="$HOME/.macconfig"
+XHJ_ZSH_BASE=$XHJ_CONFIG_BASE/zsh
 
-source $BS_ZSH_BASE/basic.sh
-source $BS_ZSH_BASE/zsh-config/common.sh
-source /usr/local/etc/profile.d/autojump.sh
-if brew ls --versions scmpuff > /dev/null; then
-    eval "$(scmpuff init -s --aliases=false)"
-fi
+source $XHJ_CONFIG_BASE/basic.sh
+source $XHJ_ZSH_BASE/common.sh
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+# cocoapods
+alias piu="pod install --repo-update"
+alias pi="pod install"
+alias pu="pod update"
+alias plint="pod lib lint --sources=http://gitlab.lizhi.fm/iOSPods/LizhiSpecs.git --use-libraries --allow-warnings"
+alias ppush="pod repo push LizhiSpecs --sources=http://gitlab.lizhi.fm/iOSPods/LizhiSpecs.git --use-libraries --allow-warnings"
+# mac
+alias o='open'
+alias oo='open .'
+alias ll='ls -algG'
+alias src='source ~/.zshrc'
+alias ow="open *.xcworkspace"
 
-# GO
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
-# Homebrew
-export PATH="/usr/local/sbin:$PATH"
-
-# for nvm
-export NVM_DIR=~/.nvm
-export EDITOR="nvim"
-#source $(brew --prefix nvm)/nvm.sh
-export NVM_SH="/usr/local/opt/nvm/nvm.sh"
-# https://github.com/creationix/nvm/issues/860
-declare -a NODE_GLOBALS=(`find $NVM_DIR/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-
-NODE_GLOBALS+=("node")
-NODE_GLOBALS+=("nvm")
-
-load_nvm () {
-  [ -s "$NVM_SH" ] && . "$NVM_SH"
-}
-
-for cmd in "${NODE_GLOBALS[@]}"; do
-  eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
-done
-
-# Bind key
-bindkey ';' autosuggest-execute
-
-#archey -o
-autoload -U bashcompinit
-bashcompinit
